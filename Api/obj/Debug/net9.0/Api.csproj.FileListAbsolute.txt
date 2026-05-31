@@ -1,0 +1,15 @@
+/Users/leonid/Documents/applications/palette-music-api/Api/bin/Debug/net9.0/Api
+/Users/leonid/Documents/applications/palette-music-api/Api/bin/Debug/net9.0/Api.deps.json
+/Users/leonid/Documents/applications/palette-music-api/Api/bin/Debug/net9.0/Api.runtimeconfig.json
+/Users/leonid/Documents/applications/palette-music-api/Api/bin/Debug/net9.0/Api.dll
+/Users/leonid/Documents/applications/palette-music-api/Api/bin/Debug/net9.0/Api.pdb
+/Users/leonid/Documents/applications/palette-music-api/Api/obj/Debug/net9.0/Api.GeneratedMSBuildEditorConfig.editorconfig
+/Users/leonid/Documents/applications/palette-music-api/Api/obj/Debug/net9.0/Api.AssemblyInfoInputs.cache
+/Users/leonid/Documents/applications/palette-music-api/Api/obj/Debug/net9.0/Api.AssemblyInfo.cs
+/Users/leonid/Documents/applications/palette-music-api/Api/obj/Debug/net9.0/Api.csproj.CoreCompileInputs.cache
+/Users/leonid/Documents/applications/palette-music-api/Api/obj/Debug/net9.0/Api.sourcelink.json
+/Users/leonid/Documents/applications/palette-music-api/Api/obj/Debug/net9.0/Api.dll
+/Users/leonid/Documents/applications/palette-music-api/Api/obj/Debug/net9.0/refint/Api.dll
+/Users/leonid/Documents/applications/palette-music-api/Api/obj/Debug/net9.0/Api.pdb
+/Users/leonid/Documents/applications/palette-music-api/Api/obj/Debug/net9.0/Api.genruntimeconfig.cache
+/Users/leonid/Documents/applications/palette-music-api/Api/obj/Debug/net9.0/ref/Api.dll
