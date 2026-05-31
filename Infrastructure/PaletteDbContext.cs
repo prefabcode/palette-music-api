@@ -1,6 +1,15 @@
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+
 namespace Infrastructure;
 
-public class PaletteDbContext
+public class PaletteDbContext : DbContext 
 {
-    
+    public PaletteDbContext(DbContextOptions<PaletteDbContext> options) : base(options) { }
+
+    public DbSet<Album> Albums { get; set; }
+    public DbSet<AlbumList> AlbumLists { get; set; }
+    public DbSet<AlbumListMapping> AlbumListMappings { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<UserListenedAlbum> UserListenedAlbums { get; set; }
 }
