@@ -1,3 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-Console.WriteLine("Hello, World!");
+var app = WebApplication.CreateBuilder(args)
+    .RegisterServices()
+    .Build();
+    
+    app.SetupMiddleware()
+        .Run();
+        
