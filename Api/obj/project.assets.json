@@ -488,6 +488,22 @@
           "buildTransitive/Mono.TextTemplating.targets": {}
         }
       },
+      "NetEscapades.Configuration.Yaml/3.1.0": {
+        "type": "package",
+        "dependencies": {
+          "YamlDotNet": "13.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/NetEscapades.Configuration.Yaml.dll": {
+            "related": ".pdb"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/NetEscapades.Configuration.Yaml.dll": {
+            "related": ".pdb"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
@@ -722,6 +738,19 @@
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "YamlDotNet/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/YamlDotNet.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/YamlDotNet.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Domain/1.0.0": {
@@ -2269,6 +2298,23 @@
         "readme.md"
       ]
     },
+    "NetEscapades.Configuration.Yaml/3.1.0": {
+      "sha512": "D5Pxt4hXABna5OwYQmAQukspW7LEoYgvfAqyw85gUF/gnH9pWHsZCLMXy2ewWoQ0PELZ1lOGFLDbDVeoCvtBgA==",
+      "type": "package",
+      "path": "netescapades.configuration.yaml/3.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/NetEscapades.Configuration.Yaml.dll",
+        "lib/net461/NetEscapades.Configuration.Yaml.pdb",
+        "lib/net472/NetEscapades.Configuration.Yaml.dll",
+        "lib/net472/NetEscapades.Configuration.Yaml.pdb",
+        "lib/netstandard2.0/NetEscapades.Configuration.Yaml.dll",
+        "lib/netstandard2.0/NetEscapades.Configuration.Yaml.pdb",
+        "netescapades.configuration.yaml.3.1.0.nupkg.sha512",
+        "netescapades.configuration.yaml.nuspec"
+      ]
+    },
     "Newtonsoft.Json/13.0.3": {
       "sha512": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
       "type": "package",
@@ -2596,6 +2642,33 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "YamlDotNet/13.0.1": {
+      "sha512": "E1e/xFXB+Cbn7pLVlr+8E3nemEitIReVgmAMMMveADvZvXGuSGHP+1Cg6oA+SUfwXHfaXLQn4STCaPKtdIJkWA==",
+      "type": "package",
+      "path": "yamldotnet/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "images/yamldotnet.png",
+        "lib/net35/YamlDotNet.dll",
+        "lib/net35/YamlDotNet.xml",
+        "lib/net45/YamlDotNet.dll",
+        "lib/net45/YamlDotNet.xml",
+        "lib/net47/YamlDotNet.dll",
+        "lib/net47/YamlDotNet.xml",
+        "lib/net6.0/YamlDotNet.dll",
+        "lib/net6.0/YamlDotNet.xml",
+        "lib/net7.0/YamlDotNet.dll",
+        "lib/net7.0/YamlDotNet.xml",
+        "lib/netstandard2.0/YamlDotNet.dll",
+        "lib/netstandard2.0/YamlDotNet.xml",
+        "lib/netstandard2.1/YamlDotNet.dll",
+        "lib/netstandard2.1/YamlDotNet.xml",
+        "yamldotnet.13.0.1.nupkg.sha512",
+        "yamldotnet.nuspec"
+      ]
+    },
     "Domain/1.0.0": {
       "type": "project",
       "path": "../Domain/Domain.csproj",
@@ -2611,6 +2684,7 @@
     "net10.0": [
       "Infrastructure >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.8",
+      "NetEscapades.Configuration.Yaml >= 3.1.0",
       "Swashbuckle.AspNetCore >= 10.2.0"
     ]
   },
@@ -2668,6 +2742,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[10.0.8, )"
+          },
+          "NetEscapades.Configuration.Yaml": {
+            "target": "Package",
+            "version": "[3.1.0, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

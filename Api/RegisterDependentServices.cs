@@ -7,6 +7,12 @@ public static class RegisterDependentServices
 {
     public static WebApplicationBuilder RegisterServices(this WebApplicationBuilder builder)
     {
+
+        var config = builder.Configuration;
+        
+        config.AddYamlFile("appsettings.yml", optional: false, reloadOnChange: true);
+        config.AddYamlFile($"appsettings.{builder.Environment.EnvironmentName}.yml", optional: true, reloadOnChange: true);
+        
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
         builder.Services.AddDbContext<PaletteDbContext>(options =>

@@ -5,8 +5,8 @@ public class AlbumListMapping
     public int Id { get; set; }
 
     public int AlbumId { get; set; }
-    public Album Album { get; set; }          // navigation to the album
+    public Album Album { get; set; }     
 
-    public Guid AlbumListId { get; set; }
-    public AlbumList AlbumList { get; set; }   // navigation to the list
+    public int AlbumListId { get; set; }
+    public AlbumList AlbumList { get; set; }   
 }

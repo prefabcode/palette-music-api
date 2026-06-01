@@ -12,4 +12,19 @@ public class PaletteDbContext : DbContext
     public DbSet<AlbumListMapping> AlbumListMappings { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<UserListenedAlbum> UserListenedAlbums { get; set; }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.GoogleSubjectId)
+            .IsUnique();
+
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
+        
+        modelBuilder.Entity<UserListenedAlbum>()
+            .HasIndex(u => new { u.UserId, u.AlbumId })
+            .IsUnique();
+    }
 }
