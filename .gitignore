@@ -101,3 +101,5 @@ desktop.ini
 
 appsettings.Development.yml
 appsettings.Local.yml
+
+Api/bin/Debug
