@@ -1,7 +1,13 @@
 // RegisterDependentServices.cs
 
+using Application.Interfaces;
+using Asp.Versioning;
 using Infrastructure;
+using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
 
 public static class RegisterDependentServices
 {
@@ -18,9 +24,55 @@ public static class RegisterDependentServices
         builder.Services.AddDbContext<PaletteDbContext>(options =>
             options.UseNpgsql(connectionString));
         
-        builder.Services.AddControllers();
+        builder.Services.AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+            })
+            .AddApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
+            });
+        
+        builder.Services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.Authority = "https://accounts.google.com";
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = "https://accounts.google.com",
+                    ValidateAudience = true,
+                    ValidAudience = builder.Configuration["Google:ClientId"],
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true
+                };
+            });
+       
+        builder.Services.AddOpenApi(options =>
+        {
+            options.AddDocumentTransformer((document, context, cancellationToken) =>
+            {
+                document.Components ??= new();
+                document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
+                document.Components.SecuritySchemes["Bearer"] = new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Description = "Paste your Google ID token here"
+                };
+                return Task.CompletedTask;
+            });
+        });
+       
+        builder.Services.AddScoped<IUserProvisioningService, UserProvisioningService>();
+
+        builder.Services.AddAuthorization();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
         
         // future: DbContext, repositories, etc.
         

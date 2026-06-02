@@ -2,6 +2,7 @@
 
 using Api.Endpoints;
 using Asp.Versioning;
+using Scalar.AspNetCore;
 
 public static class SetupMiddlewarePipeline
 {
@@ -9,13 +10,13 @@ public static class SetupMiddlewarePipeline
     {
         if (app.Environment.IsDevelopment())
         {
-            app.UseSwagger();
-            app.UseSwaggerUI();
+            app.MapOpenApi(); 
+            app.MapScalarApiReference();   
         }
 
         app.UseHttpsRedirection();
+        app.UseAuthentication();
         app.UseAuthorization();
-        app.MapControllers();
 
         var apiVersionSet = app.NewApiVersionSet().HasApiVersion(new ApiVersion(1)).ReportApiVersions().Build();
         RouteGroupBuilder versionedGroup = app.MapGroup("api/v{version:apiVersion}")
