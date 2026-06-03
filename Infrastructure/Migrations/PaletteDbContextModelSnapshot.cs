@@ -34,8 +34,14 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("AppleMusicUrl")
+                        .HasColumnType("text");
+
                     b.Property<string>("ArtistName")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("DeezerUrl")
                         .HasColumnType("text");
 
                     b.Property<string>("ImageUrl")
@@ -45,7 +51,16 @@ namespace Infrastructure.Migrations
                     b.Property<string>("QobuzUrl")
                         .HasColumnType("text");
 
+                    b.Property<string>("SoundCloudUrl")
+                        .HasColumnType("text");
+
                     b.Property<string>("SpotifyUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TidalUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("YoutubeUrl")
                         .HasColumnType("text");
 
                     b.HasKey("AlbumId");
@@ -64,6 +79,11 @@ namespace Infrastructure.Migrations
                     b.Property<string>("ListName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string>("ListType")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("Slug")
                         .IsRequired()
@@ -124,6 +144,33 @@ namespace Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Domain.Entities.UserFavoritedAlbum", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AlbumId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("FavoritedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AlbumId");
+
+                    b.HasIndex("UserId", "AlbumId")
+                        .IsUnique();
+
+                    b.ToTable("UserFavoritedAlbums");
+                });
+
             modelBuilder.Entity("Domain.Entities.UserListenedAlbum", b =>
                 {
                     b.Property<int>("Id")
@@ -168,6 +215,25 @@ namespace Infrastructure.Migrations
                     b.Navigation("Album");
 
                     b.Navigation("AlbumList");
+                });
+
+            modelBuilder.Entity("Domain.Entities.UserFavoritedAlbum", b =>
+                {
+                    b.HasOne("Domain.Entities.Album", "Album")
+                        .WithMany()
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Album");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.UserListenedAlbum", b =>

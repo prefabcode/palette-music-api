@@ -19,7 +19,8 @@ namespace Infrastructure.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ListName = table.Column<string>(type: "text", nullable: false),
-                    Slug = table.Column<string>(type: "text", nullable: false)
+                    Slug = table.Column<string>(type: "text", nullable: false),
+                    ListType = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,7 +37,12 @@ namespace Infrastructure.Migrations
                     ArtistName = table.Column<string>(type: "text", nullable: false),
                     ImageUrl = table.Column<string>(type: "text", nullable: false),
                     SpotifyUrl = table.Column<string>(type: "text", nullable: true),
-                    QobuzUrl = table.Column<string>(type: "text", nullable: true)
+                    QobuzUrl = table.Column<string>(type: "text", nullable: true),
+                    YoutubeUrl = table.Column<string>(type: "text", nullable: true),
+                    AppleMusicUrl = table.Column<string>(type: "text", nullable: true),
+                    SoundCloudUrl = table.Column<string>(type: "text", nullable: true),
+                    TidalUrl = table.Column<string>(type: "text", nullable: true),
+                    DeezerUrl = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -84,6 +90,33 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserFavoritedAlbums",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    AlbumId = table.Column<int>(type: "integer", nullable: false),
+                    FavoritedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFavoritedAlbums", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserFavoritedAlbums_Albums_AlbumId",
+                        column: x => x.AlbumId,
+                        principalTable: "Albums",
+                        principalColumn: "AlbumId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserFavoritedAlbums_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserListenedAlbums",
                 columns: table => new
                 {
@@ -121,6 +154,17 @@ namespace Infrastructure.Migrations
                 column: "AlbumListId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserFavoritedAlbums_AlbumId",
+                table: "UserFavoritedAlbums",
+                column: "AlbumId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFavoritedAlbums_UserId_AlbumId",
+                table: "UserFavoritedAlbums",
+                columns: new[] { "UserId", "AlbumId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserListenedAlbums_AlbumId",
                 table: "UserListenedAlbums",
                 column: "AlbumId");
@@ -149,6 +193,9 @@ namespace Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AlbumListMappings");
+
+            migrationBuilder.DropTable(
+                name: "UserFavoritedAlbums");
 
             migrationBuilder.DropTable(
                 name: "UserListenedAlbums");

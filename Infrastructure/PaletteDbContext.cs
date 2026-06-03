@@ -12,6 +12,7 @@ public class PaletteDbContext : DbContext
     public DbSet<AlbumListMapping> AlbumListMappings { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<UserListenedAlbum> UserListenedAlbums { get; set; }
+    public DbSet<UserFavoritedAlbum> UserFavoritedAlbums { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -23,8 +24,6 @@ public class PaletteDbContext : DbContext
             .HasIndex(u => u.Email)
             .IsUnique();
         
-        modelBuilder.Entity<UserListenedAlbum>()
-            .HasIndex(u => new { u.UserId, u.AlbumId })
-            .IsUnique();
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(PaletteDbContext).Assembly);
     }
 }
