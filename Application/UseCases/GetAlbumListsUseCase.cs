@@ -1,5 +1,7 @@
 using Application.Interfaces;
 using Application.ResponseModels;
+using Domain.Entities;
+using Domain.Enums;
 
 namespace Application.UseCases;
 
@@ -10,15 +12,19 @@ public class GetAlbumListsUseCase
     public GetAlbumListsUseCase(IAlbumListRepository repository)
         => _repository = repository;
 
-    public async Task<List<AlbumListResponse>> ExecuteAsync(CancellationToken cancellationToken)
+    public async Task<Dictionary<string, List<AlbumListResponse>>> ExecuteAsync(CancellationToken cancellationToken)
     {
         var lists = await _repository.GetAllAsync(cancellationToken);
-
-        return lists.Select(list => new AlbumListResponse
-        {
-            ListName = list.ListName,
-            Slug = list.Slug,
-            ListType = list.ListType.ToString()
-        }).ToList();
+        
+        return lists
+            .GroupBy(l => l.ListType.ToString())
+            .ToDictionary(
+                g => g.Key,
+                g => g.Select(list => new AlbumListResponse
+                {
+                    ListName = list.ListName,
+                    Slug = list.Slug,
+                }).ToList()  
+            );
     }
 }
