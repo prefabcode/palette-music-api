@@ -1,8 +1,10 @@
 // RegisterDependentServices.cs
 
 using Application.Interfaces;
+using Application.UseCases;
 using Asp.Versioning;
 using Infrastructure;
+using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -70,7 +72,9 @@ public static class RegisterDependentServices
         });
        
         builder.Services.AddScoped<IUserProvisioningService, UserProvisioningService>();
-
+        builder.Services.AddScoped<IAlbumListRepository, AlbumListRepository>();
+        builder.Services.AddScoped<GetAlbumListsUseCase>();
+        
         builder.Services.AddAuthorization();
         builder.Services.AddEndpointsApiExplorer();
         

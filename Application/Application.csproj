@@ -8,8 +8,6 @@
 
     <ItemGroup>
       <Folder Include="RequestModels\" />
-      <Folder Include="ResponseModels\" />
-      <Folder Include="UseCases\" />
     </ItemGroup>
 
     <ItemGroup>

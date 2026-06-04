@@ -22,7 +22,9 @@ public static class SetupMiddlewarePipeline
         RouteGroupBuilder versionedGroup = app.MapGroup("api/v{version:apiVersion}")
             .WithApiVersionSet(apiVersionSet)
             .RequireAuthorization();
+        
         versionedGroup.MapAlbumListEndpoints();
+        versionedGroup.MapAlbumEndpoints();
 
         return app;
     }
