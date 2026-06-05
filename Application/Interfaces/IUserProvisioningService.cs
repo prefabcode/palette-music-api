@@ -5,5 +5,5 @@ namespace Application.Interfaces;
 
 public interface IUserProvisioningService
 {
-    Task<User> EnsureUserAsync(ClaimsPrincipal principal);
+    Task<User> EnsureUserAsync(ClaimsPrincipal principal, CancellationToken cancellationToken);
 }

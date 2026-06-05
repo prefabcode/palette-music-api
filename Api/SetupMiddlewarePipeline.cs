@@ -25,6 +25,7 @@ public static class SetupMiddlewarePipeline
         
         versionedGroup.MapAlbumListEndpoints();
         versionedGroup.MapAlbumEndpoints();
+        versionedGroup.MapUserEndpoints();
 
         return app;
     }

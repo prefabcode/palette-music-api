@@ -11,7 +11,7 @@ public class UserProvisioningService : IUserProvisioningService
 
     public UserProvisioningService(PaletteDbContext db) => _db = db;
 
-    public async Task<User> EnsureUserAsync(ClaimsPrincipal principal)
+    public async Task<User> EnsureUserAsync(ClaimsPrincipal principal, CancellationToken cancellationToken)
     {
         var googleSub = principal.FindFirst("sub")?.Value ?? principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var email = principal.FindFirst(ClaimTypes.Email)?.Value;
@@ -20,7 +20,7 @@ public class UserProvisioningService : IUserProvisioningService
             throw new InvalidOperationException("No subject claim on token.");
 
         var user = await _db.Users
-            .FirstOrDefaultAsync(u => u.GoogleSubjectId == googleSub);
+            .FirstOrDefaultAsync(u => u.GoogleSubjectId == googleSub, cancellationToken);
 
         if (user is null)
         {
@@ -32,7 +32,7 @@ public class UserProvisioningService : IUserProvisioningService
                 DateCreated = DateTime.UtcNow
             };
             _db.Users.Add(user);
-            await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync(cancellationToken);
         }
 
         return user;

@@ -74,6 +74,7 @@ public static class RegisterDependentServices
         builder.Services.AddScoped<IUserProvisioningService, UserProvisioningService>();
         builder.Services.AddScoped<IAlbumListRepository, AlbumListRepository>();
         builder.Services.AddScoped<GetAlbumListsUseCase>();
+        builder.Services.AddScoped<GetUserInfoUseCase>();
         
         builder.Services.AddAuthorization();
         builder.Services.AddEndpointsApiExplorer();
