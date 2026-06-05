@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(PaletteDbContext))]
-    [Migration("20260603122149_InitialCreate")]
+    [Migration("20260605001014_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -135,6 +135,10 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("GoogleSubjectId")
                         .HasColumnType("text");
+
+                    b.Property<string>("PreferredStreamer")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.HasKey("Id");
 

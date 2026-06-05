@@ -133,6 +133,10 @@ namespace Infrastructure.Migrations
                     b.Property<string>("GoogleSubjectId")
                         .HasColumnType("text");
 
+                    b.Property<string>("PreferredStreamer")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
