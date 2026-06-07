@@ -6,14 +6,12 @@ namespace Application.UseCases;
 
 public class GetSluggedAlbumListUseCase
 {
-    private readonly IAlbumListRepository _repository;
-    private readonly IUserProvisioningService _userProvisioningService;
+    private readonly IAlbumListRepository _albumListRepository;
     private readonly IUserRepository _userRepository;
 
-    public GetSluggedAlbumListUseCase(IAlbumListRepository repository, IUserProvisioningService userProvisioningService, IUserRepository userRepository)
+    public GetSluggedAlbumListUseCase(IAlbumListRepository albumListRepository, IUserRepository userRepository)
     {
-        _repository = repository;
-        _userProvisioningService = userProvisioningService;
+        _albumListRepository = albumListRepository;
         _userRepository = userRepository;
     }
 
@@ -28,7 +26,7 @@ public class GetSluggedAlbumListUseCase
             return null;
         }
         
-        return await _repository.GetBySlugAsync(userId.Value, slug, cancellationToken);
+        return await _albumListRepository.GetBySlugAsync(userId.Value, slug, cancellationToken);
     }
 
 }

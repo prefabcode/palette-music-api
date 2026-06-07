@@ -77,7 +77,9 @@ public static class RegisterDependentServices
         builder.Services.AddScoped<GetAlbumListsUseCase>();
         builder.Services.AddScoped<GetUserInfoUseCase>();
         builder.Services.AddScoped<GetSluggedAlbumListUseCase>();
-        
+        builder.Services.AddScoped<AddFavoriteAlbumUseCase>();
+        builder.Services.AddScoped<RemoveFavoriteAlbumUseCase>();
+        builder.Services.AddScoped<AddListenedAlbumUseCase>();
         builder.Services.AddAuthorization();
         builder.Services.AddEndpointsApiExplorer();
         
