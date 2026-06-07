@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Application.ResponseModels;
 using Application.UseCases;
 
 namespace Api.Endpoints;
@@ -18,9 +20,17 @@ public static class AlbumListEndpoints
         return Results.Ok(result);
     }
 
-    public static async Task<IResult> GetAlbumListBySlug(string slug)
+    public static async Task<IResult> GetAlbumListBySlug(
+        ClaimsPrincipal principal, 
+        GetSluggedAlbumListUseCase useCase,
+        string slug, 
+        CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var result = await useCase.ExecuteAsync(principal, slug, cancellationToken);
+        if (result is null)
+            return Results.NotFound();
+        
+        return Results.Ok(result);
     }
 
     
