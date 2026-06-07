@@ -8,20 +8,27 @@ public class GetSluggedAlbumListUseCase
 {
     private readonly IAlbumListRepository _repository;
     private readonly IUserProvisioningService _userProvisioningService;
+    private readonly IUserRepository _userRepository;
 
-    public GetSluggedAlbumListUseCase(IAlbumListRepository repository, IUserProvisioningService userProvisioningService)
+    public GetSluggedAlbumListUseCase(IAlbumListRepository repository, IUserProvisioningService userProvisioningService, IUserRepository userRepository)
     {
         _repository = repository;
         _userProvisioningService = userProvisioningService;
+        _userRepository = userRepository;
     }
 
     public async Task<SluggedAlbumListResponse?> ExecuteAsync(ClaimsPrincipal principal, string slug, CancellationToken cancellationToken)
     {
-        var user = await _userProvisioningService.EnsureUserAsync(principal, cancellationToken);
+        var googleSub = principal.FindFirst("sub")?.Value ?? principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        var userId = await _userRepository.GetIdByGoogleSubAsync(googleSub, cancellationToken);
+
+        if (userId == null)
+        {
+            return null;
+        }
         
-        // TODO: ERROR CHECKING HERE IF USER DOESN'T EXIST? 
-        
-        return await _repository.GetBySlugAsync(user.Id, slug, cancellationToken);
+        return await _repository.GetBySlugAsync(userId.Value, slug, cancellationToken);
     }
 
 }
