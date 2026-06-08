@@ -2,7 +2,7 @@ namespace Application.ResponseModels;
 
 public class SluggedAlbumListResponse
 {
-    public string? ListName { get; set; }
+    public required string ListName { get; set; }
     
     public required string Slug { get; set; }
     

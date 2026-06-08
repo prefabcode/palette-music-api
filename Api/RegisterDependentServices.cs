@@ -74,12 +74,14 @@ public static class RegisterDependentServices
         builder.Services.AddScoped<IUserProvisioningService, UserProvisioningService>();
         builder.Services.AddScoped<IAlbumListRepository, AlbumListRepository>();
         builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IUserLibraryRepository, UserLibraryRepository>();
         builder.Services.AddScoped<GetAlbumListsUseCase>();
         builder.Services.AddScoped<GetUserInfoUseCase>();
         builder.Services.AddScoped<GetSluggedAlbumListUseCase>();
         builder.Services.AddScoped<AddFavoriteAlbumUseCase>();
         builder.Services.AddScoped<RemoveFavoriteAlbumUseCase>();
         builder.Services.AddScoped<AddListenedAlbumUseCase>();
+        builder.Services.AddScoped<RemoveListenedAlbumUseCase>();
         builder.Services.AddAuthorization();
         builder.Services.AddEndpointsApiExplorer();
         
